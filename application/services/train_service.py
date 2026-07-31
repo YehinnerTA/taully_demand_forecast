@@ -41,10 +41,10 @@ class TrainService:
             df_cat['is_weekend'] = (df_cat['day_of_week'] >= 5).astype(int)
 
             # Feature de lag (día anterior)
-            df_cat['lag_1'] = df_cat['quantity'].shift(1).fillna(method='bfill')
+            df_cat['lag_1'] = df_cat['quantity'].shift(1).bfill()
 
             # Feature de media móvil 7 días
-            df_cat['rolling_7'] = df_cat['quantity'].rolling(7, min_periods=1).mean().fillna(method='bfill')
+            df_cat['rolling_7'] = df_cat['quantity'].rolling(7, min_periods=1).mean().bfill()
 
             # Dividir en X e y
             features = ['day_of_week', 'month', 'day_of_year', 'is_weekend', 'lag_1', 'rolling_7']
